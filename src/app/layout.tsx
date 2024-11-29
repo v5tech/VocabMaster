@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: '英语词汇学习',
-  description: '一个简单的英语词汇学习网站',
+  title: 'VocabMaster - 智能词汇学习助手',
+  description: '探索词汇的无限可能，构建你的语言宝库',
 }
 
 export default function RootLayout({
@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="zh-CN">
       <body className={inter.className}>{children}</body>
     </html>
   )

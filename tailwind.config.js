@@ -65,10 +65,15 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        "sound-wave": {
+          "0%, 100%": { height: "0.5rem" },
+          "50%": { height: "1.5rem" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "sound-wave": "sound-wave 1s ease-in-out infinite",
       },
     },
   },
