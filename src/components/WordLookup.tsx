@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { saveToLocalStorage, getFromLocalStorage, Word, translateText, DictionaryResult } from '@/lib/utils'
-import { Search, Volume2, Volume1, Plus, Loader2 } from 'lucide-react'
+import { Search, Volume2, Volume1, Plus, Loader2, BookOpen } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTab } from '@/contexts/TabContext'
 
@@ -32,6 +32,8 @@ export default function WordLookup() {
   const [mounted, setMounted] = useState(false)
   const [translations, setTranslations] = useState<Record<string, string>>({})
   const [data, setData] = useState<DictionaryResult[]>([])
+  const [wordTranslation, setWordTranslation] = useState('')
+  const [isWordTranslating, setIsWordTranslating] = useState(false)
   const { selectedWord, setSelectedWord } = useTab()
 
   useEffect(() => {
@@ -89,6 +91,24 @@ export default function WordLookup() {
     }
   }
 
+  const fetchWordTranslation = async (word: string) => {
+    setIsWordTranslating(true)
+    try {
+      const response = await fetch(
+        `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=zh&dt=t&q=${encodeURIComponent(
+          word
+        )}`
+      )
+      const data = await response.json()
+      setWordTranslation(data[0][0][0])
+    } catch (error) {
+      console.error("Error fetching word translation:", error)
+      setWordTranslation("")
+    } finally {
+      setIsWordTranslating(false)
+    }
+  }
+
   const searchWord = async (searchTerm?: string) => {
     const termToSearch = searchTerm || word.trim()
     if (!termToSearch) return
@@ -96,6 +116,10 @@ export default function WordLookup() {
     setLoading(true)
     setError('')
     setSuccessMessage('')
+    setData([])
+    setTranslations({})
+    setWordTranslation('')
+    
     try {
       const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(termToSearch)}`)
       if (!response.ok) {
@@ -120,6 +144,9 @@ export default function WordLookup() {
       )
       
       setTranslations(Object.fromEntries(translations))
+      
+      // 获取单词翻译
+      await fetchWordTranslation(termToSearch)
     } catch (error: any) {
       console.error('Error fetching word:', error)
       setResult(null)
@@ -132,32 +159,29 @@ export default function WordLookup() {
   const addToVocabulary = () => {
     if (!data.length) return
 
+    const phoneticData = data[0].phonetics.find(p => p.audio) || data[0].phonetics[0]
+    
+    const newWord: Word = {
+      id: Date.now().toString(),
+      word: data[0].word,
+      phonetic: phoneticData?.text || '',
+      phoneticAudio: phoneticData?.audio || '',
+      meaning: '',  
+      commonTranslation: wordTranslation || '',
+      addedAt: new Date().toISOString(),
+      lastReviewed: null,
+    }
+
     const vocabulary = getFromLocalStorage('vocabulary') || []
+    
     if (vocabulary.some((w: Word) => w.word.toLowerCase() === data[0].word.toLowerCase())) {
       setError('该单词已在生词本中')
       return
     }
 
-    // 合并所有词性的第一个释义
-    const allDefinitions = data.map((entry: DictionaryResult) => 
-      entry.meanings.map(meaning => 
-        `${meaning.partOfSpeech}: ${meaning.definitions[0].definition}`
-      ).join('\n')
-    ).join('\n')
-
-    const newWord: Word = {
-      id: Date.now().toString(),
-      word: data[0].word,
-      phonetic: data[0].phonetics.find(p => p.text)?.text || '',
-      meaning: allDefinitions,
-      addedAt: new Date().toISOString(),
-      lastReviewed: null
-    }
-
     vocabulary.push(newWord)
     saveToLocalStorage('vocabulary', vocabulary)
     setSuccessMessage('单词已添加到生词本！')
-    setError('')
   }
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -282,6 +306,31 @@ export default function WordLookup() {
                 <Plus className="h-4 w-4" />
                 添加到生词本
               </button>
+            </div>
+
+            {/* 添加常用释义部分 */}
+            <div className="mt-6">
+              <div className="relative">
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent blur-sm" />
+                <div className="relative p-5 rounded-lg border bg-background/80 backdrop-blur-sm">
+                  <div className="absolute -top-3 left-4">
+                    <span className="inline-flex items-center px-3 py-1 text-sm font-medium rounded-full bg-primary text-primary-foreground shadow-sm">
+                      常用释义
+                    </span>
+                  </div>
+                  
+                  {isWordTranslating ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                      <span className="text-base text-muted-foreground">正在翻译...</span>
+                    </div>
+                  ) : wordTranslation ? (
+                    <p className="text-lg text-foreground leading-relaxed tracking-wide pt-2">
+                      {wordTranslation}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
             </div>
           </div>
 

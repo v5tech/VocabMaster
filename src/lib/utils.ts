@@ -44,7 +44,9 @@ export interface Word {
   id: string
   word: string
   phonetic: string
+  phoneticAudio?: string
   meaning: string
+  commonTranslation: string
   addedAt: string
   lastReviewed: string | null
 }
@@ -86,20 +88,4 @@ export const partOfSpeechMap: Record<string, string> = {
   article: "冠词",
   determiner: "限定词",
   numeral: "数词"
-}
-
-// 判断是否为常用释义（基于位置和词性）
-export const isCommonDefinition = (entry: DictionaryResult, meaningIndex: number, defIndex: number): boolean => {
-  // 第一个词条的第一个词性的第一个释义视为最常用
-  if (meaningIndex === 0 && defIndex === 0) {
-    return true
-  }
-  
-  // 名词和动词的第一个释义也视为常用
-  const meaning = entry.meanings[meaningIndex]
-  if (defIndex === 0 && (meaning.partOfSpeech === 'noun' || meaning.partOfSpeech === 'verb')) {
-    return true
-  }
-  
-  return false
 }

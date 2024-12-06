@@ -155,7 +155,7 @@ export default function WordReview() {
                   <EyeOff className="h-4 w-4" />
                   隐藏释义
                 </button>
-                <p className="text-xl">{currentWord.meaning}</p>
+                <p className="text-xl">{currentWord.commonTranslation}</p>
                 {currentWord.lastReviewed && (
                   <p className="text-sm text-muted-foreground">
                     上次复习: {new Date(currentWord.lastReviewed).toLocaleDateString()}
