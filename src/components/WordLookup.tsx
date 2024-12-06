@@ -137,7 +137,7 @@ export default function WordLookup() {
       
       // 批量翻译所有释义
       const translations = await Promise.all(
-        allDefinitions.map(async (def) => {
+        allDefinitions.map(async (def: string) => {
           const translation = await translateText(def)
           return [def, translation]
         })
