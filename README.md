@@ -44,8 +44,8 @@ VocabMaster 是一个优雅、高效的在线词汇学习平台，专注于提�
 
 1. 克隆项目
 ```bash
-git clone https://github.com/v5tech/vocabmaster.git
-cd vocabmaster
+git clone https://github.com/v5tech/VocabMaster.git
+cd VocabMaster
 ```
 
 2. 安装依赖
@@ -117,7 +117,7 @@ yarn dev
 
 如有问题或建议，欢迎通过以下方式联系：
 
-- 提交 [Issue](https://github.com/v5tech/vocabmaster/issues)
+- 提交 [Issue](https://github.com/v5tech/VocabMaster/issues)
 
 ---
 

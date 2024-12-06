@@ -43,14 +43,14 @@ export default function Footer() {
             {/* Social Links - First Row */}
             <div className="flex items-center justify-center gap-6">
               <Link 
-                href="https://github.com/vocabmaster" 
+                href="https://github.com/v5tech/VocabMaster" 
                 className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
                 aria-label="GitHub"
               >
                 <Github className="h-5 w-5" />
               </Link>
               <Link 
-                href="https://twitter.com/vocabmaster" 
+                href="https://twitter.com"
                 className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
                 aria-label="Twitter"
               >
