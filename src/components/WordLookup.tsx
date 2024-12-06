@@ -6,7 +6,9 @@ import { Search, Volume2, Plus, Loader2, BookOpen } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTab } from '@/contexts/TabContext'
 
-const partOfSpeechMap = {
+type PartOfSpeech = 'noun' | 'verb' | 'adjective' | 'adverb' | 'pronoun' | 'preposition' | 'conjunction' | 'interjection'
+
+const partOfSpeechMap: Record<PartOfSpeech, string> = {
   noun: '名词',
   verb: '动词',
   adjective: '形容词',
@@ -340,7 +342,7 @@ export default function WordLookup() {
                       <div className="relative z-10">
                         <div className="flex items-center gap-3">
                           <div className="flex items-center px-4 py-2 rounded-full bg-primary text-primary-foreground font-medium text-base">
-                            <span>{partOfSpeechMap[meaning.partOfSpeech] || meaning.partOfSpeech}</span>
+                            <span>{partOfSpeechMap[meaning.partOfSpeech as PartOfSpeech] || meaning.partOfSpeech}</span>
                           </div>
                         </div>
 
