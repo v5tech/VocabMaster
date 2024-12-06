@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { saveToLocalStorage, getFromLocalStorage, Word, translateText, DictionaryResult } from '@/lib/utils'
-import { Search, Volume2, Volume1, Plus, Loader2, Globe2, GlobeIcon } from 'lucide-react'
+import { Search, Volume2, Volume1, Plus, Loader2 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTab } from '@/contexts/TabContext'
 
@@ -28,7 +28,7 @@ export default function WordLookup() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
-  const [isPlaying, setIsPlaying] = useState(false)
+  const [playingStates, setPlayingStates] = useState<Record<string, boolean>>({})
   const [mounted, setMounted] = useState(false)
   const [translations, setTranslations] = useState<Record<string, string>>({})
   const [data, setData] = useState<DictionaryResult[]>([])
@@ -77,15 +77,15 @@ export default function WordLookup() {
   }, [result])
 
   const playAudio = async (audioUrl: string) => {
-    setIsPlaying(true)
+    setPlayingStates(prev => ({ ...prev, [audioUrl]: true }))
     const audio = new Audio(audioUrl)
     try {
       await audio.play()
-      audio.onended = () => setIsPlaying(false)
+      audio.onended = () => setPlayingStates(prev => ({ ...prev, [audioUrl]: false }))
     } catch (error) {
       console.error('Error playing audio:', error)
       setError('音频播放失败')
-      setIsPlaying(false)
+      setPlayingStates(prev => ({ ...prev, [audioUrl]: false }))
     }
   }
 
@@ -226,8 +226,18 @@ export default function WordLookup() {
                   )))
                   .map((phoneticStr, index) => {
                     const phonetic = JSON.parse(phoneticStr)
+                    const isPlaying = playingStates[phonetic.audio] || false
+                    const isUS = phonetic.text.includes('US') || index === 0
                     return (
                       <div key={index} className="flex items-center gap-2">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-base" title={isUS ? "美式音标" : "英式音标"}>
+                            {isUS ? "🇺🇸" : "🇬🇧"}
+                          </span>
+                          <span className="text-xs font-medium text-muted-foreground">
+                            {isUS ? "美" : "英"}
+                          </span>
+                        </div>
                         <span className="text-base text-muted-foreground">
                           {phonetic.text}
                         </span>
@@ -235,6 +245,7 @@ export default function WordLookup() {
                           onClick={() => playAudio(phonetic.audio)}
                           disabled={isPlaying}
                           className="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                          title={isUS ? "播放美式发音" : "播放英式发音"}
                         >
                           <AnimatePresence mode="wait">
                             {isPlaying ? (
@@ -259,11 +270,6 @@ export default function WordLookup() {
                             )}
                           </AnimatePresence>
                         </button>
-                        {index === 0 ? (
-                          <Globe2 className="h-5 w-5 text-blue-500" title="美式发音" />
-                        ) : (
-                          <GlobeIcon className="h-5 w-5 text-red-500" title="英式发音" />
-                        )}
                       </div>
                     )
                   })}
