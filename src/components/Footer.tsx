@@ -20,10 +20,10 @@ export default function Footer() {
         <div className="absolute -top-24 right-1/4 w-72 h-72 bg-primary/5 rounded-full blur-3xl transform translate-x-1/2" />
       </div>
 
-      <div className="container relative mx-auto px-4 py-12 md:py-16">
-        <div className="flex flex-col items-center space-y-10">
+      <div className="container relative mx-auto px-4 py-8 md:py-12">
+        <div className="flex flex-col items-center space-y-8">
           {/* Brand Section */}
-          <div className="text-center space-y-4">
+          <div className="text-center space-y-3">
             <Link 
               href="/" 
               className="group inline-flex flex-col items-center gap-2 transition-transform hover:scale-105"
@@ -38,53 +38,50 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Bottom Section */}
-          <div className="w-full max-w-6xl mx-auto pt-8 border-t border-border/30">
-            {/* All elements in one row */}
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-4">
-              {/* Social Links - Left */}
-              <div className="flex items-center gap-6">
-                <Link 
-                  href="https://github.com/vocabmaster" 
-                  className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
-                  aria-label="GitHub"
-                >
-                  <Github className="h-5 w-5" />
-                </Link>
-                <Link 
-                  href="https://twitter.com/vocabmaster" 
-                  className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
-                  aria-label="Twitter"
-                >
-                  <Twitter className="h-5 w-5" />
-                </Link>
-                <Link 
-                  href="mailto:contact@vocabmaster.com" 
-                  className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
-                  aria-label="Email"
-                >
-                  <Mail className="h-5 w-5" />
-                </Link>
-              </div>
+          {/* Footer Content - Three Rows */}
+          <div className="w-full max-w-2xl mx-auto flex flex-col items-center gap-4">
+            {/* Social Links - First Row */}
+            <div className="flex items-center justify-center gap-6">
+              <Link 
+                href="https://github.com/vocabmaster" 
+                className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
+                aria-label="GitHub"
+              >
+                <Github className="h-5 w-5" />
+              </Link>
+              <Link 
+                href="https://twitter.com/vocabmaster" 
+                className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
+                aria-label="Twitter"
+              >
+                <Twitter className="h-5 w-5" />
+              </Link>
+              <Link 
+                href="mailto:contact@vocabmaster.com" 
+                className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
+                aria-label="Email"
+              >
+                <Mail className="h-5 w-5" />
+              </Link>
+            </div>
 
-              {/* Copyright - Center */}
-              <p className="text-xs md:text-sm text-muted-foreground/60 order-last md:order-none">
-                {currentYear} VocabMaster. All rights reserved.
-              </p>
+            {/* Copyright - Second Row */}
+            <p className="text-base text-muted-foreground/60">
+              {currentYear} VocabMaster. All rights reserved.
+            </p>
 
-              {/* Text Links - Right */}
-              <div className="flex items-center gap-8">
-                {footerLinks.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    className="relative text-sm md:text-base text-muted-foreground hover:text-primary transition-colors duration-200 group"
-                  >
-                    {link.label}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary/60 group-hover:w-full transition-all duration-300" />
-                  </Link>
-                ))}
-              </div>
+            {/* Text Links - Third Row */}
+            <div className="flex items-center justify-center gap-6">
+              {footerLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className="relative text-sm text-muted-foreground hover:text-primary transition-colors duration-200 group"
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary/60 group-hover:w-full transition-all duration-300" />
+                </Link>
+              ))}
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { getFromLocalStorage, saveToLocalStorage, Word } from '@/lib/utils'
-import { Shuffle, List, ChevronLeft, ChevronRight, Eye, EyeOff, Volume2 } from 'lucide-react'
+import { Shuffle, List, ChevronLeft, ChevronRight, Eye, EyeOff, Volume2, Loader2 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function WordReview() {
@@ -12,6 +12,7 @@ export default function WordReview() {
   const [reviewMode, setReviewMode] = useState<'all' | 'random'>('all')
   const [progress, setProgress] = useState(0)
   const [mastered, setMastered] = useState<Set<string>>(new Set())
+  const [playingStates, setPlayingStates] = useState<{ [key: string]: boolean }>({})
 
   useEffect(() => {
     let savedWords = getFromLocalStorage('vocabulary') || []
@@ -61,17 +62,20 @@ export default function WordReview() {
     setMastered(newMastered)
   }
 
-  const playAudio = async (word: string) => {
+  const playAudio = async (audioUrl: string) => {
+    if (!audioUrl || playingStates[audioUrl]) return
+    
+    setPlayingStates(prev => ({ ...prev, [audioUrl]: true }))
+    
     try {
-      const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
-      const data = await response.json()
-      const audioUrl = data[0]?.phonetics?.find((p: any) => p.audio)?.audio
-      if (audioUrl) {
-        const audio = new Audio(audioUrl)
-        audio.play()
+      const audio = new Audio(audioUrl)
+      await audio.play()
+      audio.onended = () => {
+        setPlayingStates(prev => ({ ...prev, [audioUrl]: false }))
       }
     } catch (error) {
       console.error('Error playing audio:', error)
+      setPlayingStates(prev => ({ ...prev, [audioUrl]: false }))
     }
   }
 
@@ -153,24 +157,43 @@ export default function WordReview() {
               >
                 {currentWord.word}
               </motion.h2>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center gap-2 mt-2">
                 {currentWord.phonetic && (
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-lg text-muted-foreground font-medium"
-                  >
+                  <span className="text-lg text-muted-foreground">
                     {currentWord.phonetic}
-                  </motion.p>
+                  </span>
                 )}
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={() => playAudio(currentWord.word)}
-                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                >
-                  <Volume2 className="h-5 w-5 text-primary" />
-                </motion.button>
+                {currentWord.phoneticAudio && (
+                  <button
+                    onClick={() => playAudio(currentWord.phoneticAudio!)}
+                    className="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    disabled={playingStates[currentWord.phoneticAudio]}
+                    title="播放发音"
+                  >
+                    <AnimatePresence mode="wait">
+                      {playingStates[currentWord.phoneticAudio] ? (
+                        <motion.div
+                          key="playing"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.8 }}
+                          className="text-primary"
+                        >
+                          <Volume2 className="h-5 w-5" />
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="idle"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.8 }}
+                        >
+                          <Volume2 className="h-5 w-5" />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </button>
+                )}
               </div>
             </div>
             

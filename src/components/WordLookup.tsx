@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { saveToLocalStorage, getFromLocalStorage, Word, translateText, DictionaryResult } from '@/lib/utils'
-import { Search, Volume2, Volume1, Plus, Loader2, BookOpen } from 'lucide-react'
+import { Search, Volume2, Plus, Loader2, BookOpen } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTab } from '@/contexts/TabContext'
 
@@ -289,7 +289,7 @@ export default function WordLookup() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.8 }}
                               >
-                                <Volume1 className="h-5 w-5" />
+                                <Volume2 className="h-5 w-5" />
                               </motion.div>
                             )}
                           </AnimatePresence>
@@ -313,12 +313,6 @@ export default function WordLookup() {
               <div className="relative">
                 <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent blur-sm" />
                 <div className="relative p-5 rounded-lg border bg-background/80 backdrop-blur-sm">
-                  <div className="absolute -top-3 left-4">
-                    <span className="inline-flex items-center px-3 py-1 text-sm font-medium rounded-full bg-primary text-primary-foreground shadow-sm">
-                      常用释义
-                    </span>
-                  </div>
-                  
                   {isWordTranslating ? (
                     <div className="flex items-center justify-center gap-2">
                       <Loader2 className="h-4 w-4 animate-spin text-primary" />
