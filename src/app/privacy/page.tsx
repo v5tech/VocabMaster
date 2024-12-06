@@ -1,90 +1,211 @@
-'use client'
+"use client"
 
-import { Shield } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { Shield, Lock, Cookie, Database, Server, Eye, Bell } from 'lucide-react'
 
-export default function PrivacyPage() {
+export default function Privacy() {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-16 max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <div className="mx-auto w-16 h-16 mb-6 rounded-2xl bg-primary/10 flex items-center justify-center">
-            <Shield className="w-8 h-8 text-primary" />
+    <main className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <section className="relative py-20 overflow-hidden border-b">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-primary/10 to-background">
+          <div className="absolute inset-0 bg-grid-primary opacity-10" />
+        </div>
+        <div className="container relative mx-auto px-4">
+          <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="space-y-6"
+            >
+              <div className="p-3 rounded-2xl bg-primary/10 inline-block">
+                <Shield className="w-10 h-10 text-primary" />
+              </div>
+              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">隐私政策</h1>
+              <p className="text-xl text-muted-foreground max-w-2xl">
+                我们重视您的隐私，并致力于保护您的个人信息
+              </p>
+              <p className="text-sm text-muted-foreground">
+                最后更新时间：2024年3月
+              </p>
+            </motion.div>
           </div>
-          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary via-primary to-primary/80 bg-clip-text text-transparent">
-            隐私政策
-          </h1>
-          <p className="text-xl text-muted-foreground">
-            我们如何保护您的隐私
-          </p>
-        </motion.div>
+        </div>
+      </section>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="prose prose-zinc dark:prose-invert mx-auto"
-        >
-          <h2>数据收集</h2>
-          <p>
-            VocabMaster 是一个完全基于本地存储的应用程序。我们不会收集、存储或传输您的任何个人信息或使用数据。您的所有学习数据（包括词库和学习记录）都存储在您的浏览器本地存储中。
-          </p>
+      {/* Privacy Content */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto space-y-20">
+            {/* 数据收集 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <Database className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold">数据收集</h2>
+              </div>
+              <div className="pl-15 space-y-4">
+                <p className="text-muted-foreground">我们收集的信息包括：</p>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>您添加到生词本的单词和学习记录</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>学习进度和复习统计数据</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>基本的使用统计信息，如访问时间和功能使用频率</span>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
 
-          <h2>本地存储</h2>
-          <p>
-            我们使用浏览器的本地存储（LocalStorage）来保存以下信息：
-          </p>
-          <ul>
-            <li>您保存的单词和释义</li>
-            <li>学习进度和复习记录</li>
-            <li>应用程序的基本设置</li>
-          </ul>
+            {/* 数据使用 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <Eye className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold">数据使用</h2>
+              </div>
+              <div className="pl-15 space-y-4">
+                <p className="text-muted-foreground">我们使用收集的信息：</p>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>为您提供个性化的学习体验和复习建议</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>改进我们的服务和用户体验</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>生成匿名的使用统计数据</span>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
 
-          <h2>数据安全</h2>
-          <p>
-            由于所有数据都存储在本地，您的数据安全完全由您的设备安全性决定。我们建议您：
-          </p>
-          <ul>
-            <li>定期备份重要的学习数据</li>
-            <li>保持设备系统和浏览器的及时更新</li>
-            <li>在共享设备上使用时注意保护个人隐私</li>
-          </ul>
+            {/* 数据安全 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <Lock className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold">数据安全</h2>
+              </div>
+              <div className="pl-15 space-y-4">
+                <p className="text-muted-foreground">
+                  我们采取多重措施保护您的数据安全：
+                </p>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>所有数据都存储在本地，确保您完全控制自己的数据</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>使用安全的数据存储方式，防止未经授权的访问</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>定期进行安全审查和更新</span>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
 
-          <h2>第三方服务</h2>
-          <p>
-            我们的应用程序可能会使用以下第三方服务：
-          </p>
-          <ul>
-            <li>单词释义和发音 API</li>
-            <li>字体和图标资源</li>
-          </ul>
-          <p>
-            这些服务仅用于提供基本功能，不会收集您的个人信息。
-          </p>
+            {/* Cookie 政策 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <Cookie className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold">Cookie 政策</h2>
+              </div>
+              <div className="pl-15 space-y-4">
+                <p className="text-muted-foreground">
+                  我们使用必要的 Cookie 来：
+                </p>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>保存您的偏好设置（如深色模式）</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>提供基本的网站功能</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>改善网站性能和用户体验</span>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
 
-          <h2>政策更新</h2>
-          <p>
-            我们可能会不时更新此隐私政策。任何重大变更都会通过应用程序通知您。继续使用我们的服务即表示您同意新的隐私政策。
-          </p>
-
-          <h2>联系我们</h2>
-          <p>
-            如果您对我们的隐私政策有任何疑问，请随时联系我们：
-          </p>
-          <ul>
-            <li>电子邮件：privacy@vocabmaster.com</li>
-          </ul>
-
-          <div className="text-sm text-muted-foreground mt-8">
-            最后更新时间：2024年3月
+            {/* 隐私政策更新 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <Bell className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold">隐私政策更新</h2>
+              </div>
+              <div className="pl-15 space-y-4">
+                <p className="text-muted-foreground">
+                  我们可能会不时更新本隐私政策。当我们进行重大更改时，我们将：
+                </p>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>在网站显著位置发布通知</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>更新本页面的"最后更新时间"</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>必要时通过应用内通知告知用户</span>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
-      </div>
-    </div>
+        </div>
+      </section>
+    </main>
   )
 }

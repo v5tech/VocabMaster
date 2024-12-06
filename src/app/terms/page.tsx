@@ -1,105 +1,212 @@
-'use client'
+"use client"
 
-import { Scale } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { Scale, UserCheck, Copyright, AlertCircle, BookOpen, FileText } from 'lucide-react'
 
-export default function TermsPage() {
+export default function Terms() {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-16 max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <div className="mx-auto w-16 h-16 mb-6 rounded-2xl bg-primary/10 flex items-center justify-center">
-            <Scale className="w-8 h-8 text-primary" />
+    <main className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <section className="relative py-20 overflow-hidden border-b">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-primary/10 to-background">
+          <div className="absolute inset-0 bg-grid-primary opacity-10" />
+        </div>
+        <div className="container relative mx-auto px-4">
+          <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="space-y-6"
+            >
+              <div className="p-3 rounded-2xl bg-primary/10 inline-block">
+                <Scale className="w-10 h-10 text-primary" />
+              </div>
+              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">使用条款</h1>
+              <p className="text-xl text-muted-foreground max-w-2xl">
+                请仔细阅读以下条款，这些条款规定了使用 VocabMaster 的权利和义务
+              </p>
+              <p className="text-sm text-muted-foreground">
+                最后更新时间：2024年3月
+              </p>
+            </motion.div>
           </div>
-          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary via-primary to-primary/80 bg-clip-text text-transparent">
-            使用条款
-          </h1>
-          <p className="text-xl text-muted-foreground">
-            请仔细阅读以下条款
-          </p>
-        </motion.div>
+        </div>
+      </section>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="prose prose-zinc dark:prose-invert mx-auto"
-        >
-          <h2>接受条款</h2>
-          <p>
-            通过访问和使用 VocabMaster，您同意受这些条款的约束。如果您不同意这些条款的任何部分，请不要使用我们的服务。
-          </p>
+      {/* Terms Content */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto space-y-20">
+            {/* 服务说明 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <BookOpen className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold">服务说明</h2>
+              </div>
+              <div className="pl-15 space-y-4">
+                <p className="text-muted-foreground">
+                  VocabMaster 是一个在线词汇学习平台，提供以下服务：
+                </p>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>单词查询和释义展示</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>生词本管理功能</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>单词复习系统</span>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
 
-          <h2>服务说明</h2>
-          <p>
-            VocabMaster 是一个在线词汇学习工具，提供以下功能：
-          </p>
-          <ul>
-            <li>英文单词查询和释义</li>
-            <li>个人词库管理</li>
-            <li>单词复习系统</li>
-            <li>发音功能</li>
-          </ul>
+            {/* 用户责任 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <UserCheck className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold">用户责任</h2>
+              </div>
+              <div className="pl-15 space-y-4">
+                <p className="text-muted-foreground">使用本服务时，您同意：</p>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>遵守所有适用的法律法规</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>不会滥用或干扰服务的正常运行</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>对自己的账户活动负责</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>不会进行任何可能损害服务或其他用户的行为</span>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
 
-          <h2>用户责任</h2>
-          <p>
-            作为用户，您同意：
-          </p>
-          <ul>
-            <li>不会以任何方式干扰服务的正常运行</li>
-            <li>不会尝试未经授权访问我们的系统或网络</li>
-            <li>对您的学习数据负责，包括定期备份</li>
-            <li>遵守所有适用的法律和法规</li>
-          </ul>
+            {/* 知识产权 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <Copyright className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold">知识产权</h2>
+              </div>
+              <div className="pl-15 space-y-4">
+                <p className="text-muted-foreground">关于知识产权，请注意：</p>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>VocabMaster 的所有内容和功能均受知识产权法保护</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>用户不得未经授权复制、修改或分发平台内容</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>词典数据来自合法授权的第三方服务</span>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
 
-          <h2>知识产权</h2>
-          <p>
-            VocabMaster 的所有内容，包括但不限于文本、图形、代码、图标和整体设计，均受版权法保护。未经明确许可，不得：
-          </p>
-          <ul>
-            <li>复制或分发我们的内容</li>
-            <li>修改或创建衍生作品</li>
-            <li>将我们的内容用于商业目的</li>
-          </ul>
+            {/* 免责声明 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <AlertCircle className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold">免责声明</h2>
+              </div>
+              <div className="pl-15 space-y-4">
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>我们不保证服务永远不会中断或出错</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>对于因使用或无法使用本服务而造成的任何损失，我们不承担责任</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>我们保留随时修改或终止服务的权利</span>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
 
-          <h2>免责声明</h2>
-          <p>
-            我们的服务按"原样"提供，不提供任何明示或暗示的保证。我们不保证：
-          </p>
-          <ul>
-            <li>服务将不间断或无错误</li>
-            <li>所有内容的完整性或准确性</li>
-            <li>服务将满足您的特定需求</li>
-          </ul>
-
-          <h2>服务变更</h2>
-          <p>
-            我们保留随时修改或终止服务的权利，恕不另行通知。我们不对服务的任何修改、暂停或终止向您或任何第三方承担责任。
-          </p>
-
-          <h2>适用法律</h2>
-          <p>
-            这些条款受中华人民共和国法律管辖。任何与这些条款相关的争议应提交至有管辖权的法院解决。
-          </p>
-
-          <h2>联系方式</h2>
-          <p>
-            如果您对这些条款有任何疑问，请联系我们：
-          </p>
-          <ul>
-            <li>电子邮件：terms@vocabmaster.com</li>
-          </ul>
-
-          <div className="text-sm text-muted-foreground mt-8">
-            最后更新时间：2024年3月
+            {/* 条款更新 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <FileText className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold">条款更新</h2>
+              </div>
+              <div className="pl-15 space-y-4">
+                <p className="text-muted-foreground">
+                  我们可能会不时更新这些条款。当我们进行重大更改时：
+                </p>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>会在网站显著位置发布通知</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>更新本页面的"最后更新时间"</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                    <span>继续使用本服务即表示您同意新的条款</span>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
-      </div>
-    </div>
+        </div>
+      </section>
+    </main>
   )
 }

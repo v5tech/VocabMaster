@@ -9,7 +9,7 @@ export default function Navbar() {
   const pathname = usePathname()
 
   const navItems = [
-    { href: '/about', label: '关于' },
+    { href: '/about', label: '关于我们' },
     { href: '/privacy', label: '隐私政策' },
     { href: '/terms', label: '使用条款' },
   ]
